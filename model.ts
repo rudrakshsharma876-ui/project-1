@@ -1,9 +1,7 @@
 // model.ts
 
-// 1. Literal union for task status
 export type TaskStatus = "todo" | "in-progress" | "done";
 
-// 2. Strict Task interface
 export interface Task {
   id: number;
   title: string;
@@ -12,63 +10,28 @@ export interface Task {
 
 let nextId = 1;
 
-/**
- * 3. addTask: Appends a new task with status "todo" and a unique ID.
- */
-export function addTask(tasks: Task[], title: string): Task[] {
-  const newTask: Task = {
-    id: nextId++,
-    title,
-    status: "todo",
-  };
+export function addTask(tasks: Task[], title: string, status: TaskStatus = "todo"): Task[] {
+  const newTask: Task = { id: nextId++, title, status };
   return [...tasks, newTask];
 }
 
-/**
- * 4. completeTask: Updates status to "done" for the task matching the given ID.
- */
 export function completeTask(tasks: Task[], id: number): Task[] {
-  return tasks.map((task) =>
-    task.id === id ? { ...task, status: "done" } : task
-  );
+  return tasks.map((t) => (t.id === id ? { ...t, status: "done" } : t));
 }
 
-/**
- * 5. filterByStatus: Returns tasks matching the provided status union.
- */
 export function filterByStatus(tasks: Task[], status: TaskStatus): Task[] {
-  return tasks.filter((task) => task.status === status);
+  return tasks.filter((t) => t.status === status);
 }
 
-// ==========================================
-// EXTRA TYPED OPERATIONS (Originality Requirement)
-// ==========================================
-
-/**
- * Custom Operation 1: deleteTask
- * Returns a new array with the task matching the given ID removed.
- */
-export function deleteTask(tasks: Task[], id: number): Task[] {
-  return tasks.filter((task) => task.id !== id);
-}
-
-/**
- * Custom Operation 2: advanceTask
- * Advances a task step-by-step: "todo" -> "in-progress" -> "done"
- */
 export function advanceTask(tasks: Task[], id: number): Task[] {
-  return tasks.map((task) => {
-    if (task.id !== id) return task;
-    if (task.status === "todo") return { ...task, status: "in-progress" };
-    if (task.status === "in-progress") return { ...task, status: "done" };
-    return task;
+  return tasks.map((t) => {
+    if (t.id !== id) return t;
+    if (t.status === "todo") return { ...t, status: "in-progress" };
+    if (t.status === "in-progress") return { ...t, status: "done" };
+    return t;
   });
 }
-// part-1: Typetasks model and Operations Implementation
-/**
- * Custom Operation 3: countByStatus
- * Returns the total number of tasks matching a specific status.
- */
-export function countByStatus(tasks: Task[], status: TaskStatus): number {
-  return filterByStatus(tasks, status).length;
+
+export function deleteTask(tasks: Task[], id: number): Task[] {
+  return tasks.filter((t) => t.id !== id);
 }
