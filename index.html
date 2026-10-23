@@ -1,5 +1,42 @@
 <h1>This is my main project
 </h1>
 <p>i am gonna push my first commit
-    
+
 </p>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TypeTasks - Type-Safe Task Tracker</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="wrap">
+    <h1>TypeTasks ⚡</h1>
+    <p class="subtitle">A strict, type-safe task tracker built with TypeScript</p>
+
+    <div class="addrow">
+      <input id="title" type="text" placeholder="Add a new task..." />
+      <select id="status">
+        <option value="todo">Todo</option>
+        <option value="in-progress">In-Progress</option>
+        <option value="done">Done</option>
+      </select>
+      <button id="add">Add Task</button>
+    </div>
+
+    <div class="filter-section">
+      <span>Filter: </span>
+      <button class="filter-btn active" data-filter="all">All</button>
+      <button class="filter-btn" data-filter="todo">Todo</button>
+      <button class="filter-btn" data-filter="in-progress">In-Progress</button>
+      <button class="filter-btn" data-filter="done">Done</button>
+    </div>
+
+    <ul id="list"></ul>
+  </div>
+
+  <script type="module" src="app.js"></script>
+</body>
+</html>
